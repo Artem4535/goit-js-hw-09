@@ -6,4 +6,8 @@ function createPromise(position, delay) {
     // Reject
   }
 }
+
+const ref = {
+  form: document.querySelector('.form')
+}
 console.log('sddsfnpm')

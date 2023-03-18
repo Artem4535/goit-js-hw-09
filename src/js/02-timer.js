@@ -32,20 +32,13 @@ const refs = {
 };
 
 
-
-
-
-
-
-
-
 refs.btnStart.disabled = true;
 
-function checkData(e) {
+function checkData() {
   const currentData = Date.now();
 
     if (currentData > selectedDate) {
-        // window.alert('Please choose a date in the future')
+      refs.btnStart.disabled = true;
         Notiflix.Notify.failure('Please choose a date in the future')
     } else {
         refs.btnStart.disabled = false;
@@ -65,14 +58,26 @@ const timer = {
         this.isActive = true 
 
 
-        setInterval(() => {
+      timer.intervalId =  setInterval(() => {
             const currentTime = Date.now();  
             const deltaTime = selectedDate - currentTime;
             const resultTime = convertMs(deltaTime);
-           updateTimer(resultTime)
+       
+        
+        if (deltaTime < 0) {
+          clearInterval(timer.intervalId);
+          this.isActive = false;
+          return
+        }
+         updateTimer(resultTime)
+          
 
             
         }, 1000);
+    },
+
+  stop() {
+      clearInterval(this.intervalId)
     }
 }
 
@@ -110,7 +115,12 @@ function updateTimer({ days, hours, minutes, seconds }) {
 
 
 refs.btnStart.addEventListener('click', () => {
-    timer.start()
+  timer.start();
+
+
+
+
+  
 })
 
 
@@ -213,4 +223,22 @@ refs.btnStart.addEventListener('click', () => {
 // }
 
 
-console.log('sdfsd')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
